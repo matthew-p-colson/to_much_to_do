@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_much_to_do/models/tasks.dart';
+import 'package:to_much_to_do/screens/new_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -78,7 +79,16 @@ class _ToDoListState extends State<ToDoList> {
     return Column(
       children: [
         TextButton(
-          onPressed: () {},
+          onPressed: () async {
+            await Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const NewScreen()))
+                .then((newTask) {
+              setState(() {
+                tasks.add(newTask);
+                buildToDoCards();
+              });
+            });
+          },
           child: const Text(
             'Create New Task',
             style: TextStyle(
